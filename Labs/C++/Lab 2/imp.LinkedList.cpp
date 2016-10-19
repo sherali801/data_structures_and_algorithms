@@ -145,3 +145,18 @@ void LinkedList::reverse() {
   }
   this->head = previousNode;
 }
+
+void LinkedList::mid() {
+  if (this->head != nullptr) {
+    Node * temp = this->head;
+    //if size of list is even then print two central elements else single element in center
+    for (int i = 0; i < ((this->size() % 2 == 0) ? ((count / 2) - 1) : (count / 2)); i++) {
+      temp = temp->next;
+    }
+    if (this->size() % 2 == 0) {
+      cout << temp->data << " " << (temp->next)->data << "\n";
+    } else {
+      cout << temp->data << "\n";
+    }
+  }
+}

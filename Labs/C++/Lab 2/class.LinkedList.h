@@ -24,6 +24,7 @@ public:
   void insert(int position, int data);
   void erase(int position);
   void reverse();
+  void mid();
 };
 
 #endif // !LINKED_LIST_H_
