@@ -134,16 +134,18 @@ void LinkedList::erase(int position) {
 }
 
 void LinkedList::reverse() {
-  Node * currentNode = this->head;
-  Node * previousNode = nullptr;
-  Node * nextNode = new Node();
-  while (currentNode != nullptr) {
-    nextNode = currentNode->next;//preserve next node
-    currentNode->next = previousNode;//reverse arrow
-    previousNode = currentNode;//after reverse current node becomes previous node
-    currentNode = nextNode;//helps in next iteration
+  if (this->head != nullptr) {
+    Node * currentNode = this->head;
+    Node * previousNode = nullptr;
+    Node * nextNode = new Node();
+    while (currentNode != nullptr) {
+      nextNode = currentNode->next;//preserve next node
+      currentNode->next = previousNode;//reverse arrow
+      previousNode = currentNode;//after reverse current node becomes previous node
+      currentNode = nextNode;//helps in next iteration
+    }
+    this->head = previousNode;
   }
-  this->head = previousNode;
 }
 
 void LinkedList::mid() {
