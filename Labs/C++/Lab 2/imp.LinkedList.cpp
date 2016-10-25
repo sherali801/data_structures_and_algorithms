@@ -10,89 +10,64 @@ LinkedList::LinkedList() {
 
 LinkedList::~LinkedList() { }
 
-bool LinkedList::empty() {
-  return ((this->head == nullptr) ? true : false);
-}
-
 int LinkedList::size() {
   return this->count;
 }
 
-void LinkedList::show() {
+void LinkedList::display() {
   if (this->head != nullptr) {
-    Node * temp = this->head;
-    while (temp != nullptr) {
-      cout << temp->data << " ";
-      temp = temp->next;
+    Node * currentNode = this->head;
+    while (currentNode != nullptr) {
+      cout << currentNode->data << " ";
+      currentNode = currentNode->next;
     }
     cout << "\n";
   }
 }
 
-int LinkedList::front() {
-  if (this->head != nullptr) {
-    return this->head->data;
-  } else {
-    return NULL;
-  }
-}
-
-int LinkedList::back() {
-  if (this->head != nullptr) {
-    Node * temp = this->head;
-    while (temp->next != nullptr) {
-      temp = temp->next;
-    }
-    return temp->data;
-  }
-  return NULL;
-}
-
-void LinkedList::pushFront(int data) {
+void LinkedList::insertAtHead(int data) {
   Node * newNode = new Node();
   newNode->data = data;
+  this->count++;
   if (this->head != nullptr) {
     newNode->next = this->head;
     this->head = newNode;
-    this->count++;
     return;
   }
   newNode->next = nullptr;
   this->head = newNode;
-  this->count++;
 }
 
-void LinkedList::pushBack(int data) {
+void LinkedList::insertAtTail(int data) {
   Node * newNode = new Node();
   newNode->data = data;
   newNode->next = nullptr;
+  this->count++;
   if (this->head != nullptr) {
-    Node * temp = this->head;
-    while (temp->next != nullptr) {
-      temp = temp->next;
+    Node * currentNode = this->head;
+    while (currentNode->next != nullptr) {
+      currentNode = currentNode->next;
     }
-    temp->next = newNode;
-    this->count++;
+    currentNode->next = newNode;
     return;
   }
   this->head = newNode;
-  this->count++;
 }
 
-void LinkedList::popFront() {
+void LinkedList::deleteFromHead() {
   if (this->head != nullptr) {
     this->head = (this->head)->next;
     this->count--;
   }
 }
 
-void LinkedList::popBack() {
+void LinkedList::deleteFromTail() {
   if (this->head != nullptr) {
-    Node * temp = this->head;
+    Node * currentNode = this->head;
     for (int i = 0; i < this->count - 2; i++) {
-      temp = temp->next;
+      currentNode = currentNode->next;
     }
-    temp->next = nullptr;
+    currentNode->next = nullptr;
     this->count--;
   }
 }
@@ -100,19 +75,20 @@ void LinkedList::popBack() {
 void LinkedList::insert(int position, int data) {
   if (this->head != nullptr && (position >= 0 && position <= this->count)) {
     if (position == 0) {
-      this->pushFront(data);
+      this->insertAtHead(data);
+      return;
+    } else if (position == this->count) {
+      this->insertAtTail(data);
       return;
     }
-    Node * temp = this->head;
+    Node * currentNode = this->head;
     for (int i = 0; i < position - 1; i++) {
-      temp = temp->next;
+      currentNode = currentNode->next;
     }
-    Node * currentNode = temp;
-    Node * nextNode = temp->next;
     Node * newNode = new Node();
     newNode->data = data;
+    newNode->next = currentNode->next;
     currentNode->next = newNode;
-    newNode->next = nextNode;
     this->count++;
   }
 }
@@ -120,15 +96,17 @@ void LinkedList::insert(int position, int data) {
 void LinkedList::erase(int position) {
   if (this->head != nullptr && (position >= 0 && position <= this->count)) {
     if (position == 0) {
-      this->popFront();
+      this->deleteFromHead();
+      return;
+    } else if (position == this->count) {
+      this->deleteFromTail();
       return;
     }
-    Node * temp = this->head;
+    Node * currentNode = this->head;
     for (int i = 0; i < position - 1; i++) {
-      temp = temp->next;
+      currentNode = currentNode->next;
     }
-    Node * nextNode = temp->next;
-    temp->next = nextNode->next;
+    currentNode->next = (currentNode->next)->next;
     this->count--;
   }
 }

@@ -12,15 +12,12 @@ private:
 public:
   LinkedList();
   ~LinkedList();
-  bool empty();
   int size();
-  void show();
-  int front();
-  int back();
-  void pushFront(int data);
-  void pushBack(int data);
-  void popFront();
-  void popBack();
+  void display();
+  void insertAtHead(int data);
+  void insertAtTail(int data);
+  void deleteFromHead();
+  void deleteFromTail();
   void insert(int position, int data);
   void erase(int position);
   void reverse();
