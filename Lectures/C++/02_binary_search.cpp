@@ -3,7 +3,7 @@
 using namespace std;
 
 bool binarySearch(int * arr, int size, int key) {
-  static int start = 0;
+  int start = 0;
   int end = size - 1;
   int mid;
   bool found = false;
