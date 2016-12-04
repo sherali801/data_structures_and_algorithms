@@ -47,12 +47,12 @@ void displayDividedParts(int * arr, int start, int mid, int end) {
   }
   cout << "\nLeft: ";
   while (start < mid) {
-    cout << arr[start];
+    cout << arr[start] << " ";
     start++;
   }
   cout << "\nRight: ";
   while (mid < end) {
-    cout << arr[mid];
+    cout << arr[mid] << " ";
     mid++;
   }
   cout << "\n";
