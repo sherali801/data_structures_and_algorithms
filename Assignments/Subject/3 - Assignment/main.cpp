@@ -51,25 +51,24 @@ int main()
     _getch();
     return 0;
   }
-  BST tree;
+  map<string, string> searchResults;
   string urls;
+  while (!fileHandle->eof()) {
+    getline(*fileHandle, query, ':');
+    getline(*fileHandle, urls);
+    searchResults[query] = urls;
+  }
+  fileHandle->close();
+  BST tree;
   unordered_map<string, int>::iterator it = topKqueries.begin();
+  map<string, string>::iterator searchResult = searchResults.begin();
   while (!topKqueries.empty()) {//storing urls for top 1000 and inserting in BST
     it = topKqueries.begin();
-    while (!fileHandle->eof()) {
-      getline(*fileHandle, query, ':');
-      getline(*fileHandle, urls);
-      if (query == it->first) {
-        tree.insert(query, urls, NULL);
-        break;
-      }
-    }
+    searchResult = searchResults.find(it->first);
+    tree.insert(it->first, searchResult->second, NULL);
     topKqueries.erase(it);
-    fileHandle->clear();
-    fileHandle->seekg(0L, ios::beg);
   }
   topKqueries.clear();
-  fileHandle->close();
   cout << "Top 1000 are stored in BST\n";
   while (!top9KRemainingQueries.empty()) {//storing remaining top 9000 without urls in BST 
     it = top9KRemainingQueries.begin();
@@ -77,6 +76,7 @@ int main()
     top9KRemainingQueries.erase(it);
   }
   top9KRemainingQueries.clear();
+  searchResults.clear();
   cout << "Remaining Top 9000 are stored in BST\n";
   string searchQuery = "";
   do {
